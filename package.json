@@ -1,0 +1,36 @@
+{
+  "name": "ssg",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predevstatic": "npm run copy:static",
+    "devstatic": "next dev",
+    "buildstatic": "next build",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "copy:news": "node -e \"require('fs-extra').copySync('./_src/news', './app/news')\"",
+    "copy:static": "node -e \"require('fs-extra').copySync('./_src/pages', './app/pages')\"",
+    "copy:dev": "node -e \"require('fs-extra').copySync('./_src', './app')\"",
+    "clean:dev": "rimraf ./app",
+    "clean:static": "rimraf ./app/pages"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.1",
+    "cheerio": "^1.0.0-rc.12",
+    "dayjs": "^1.11.10",
+    "html-react-parser": "^5.0.10",
+    "html-to-text": "^9.0.5",
+    "microcms-js-sdk": "^2.7.0",
+    "next": "13.5.6",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "13.5.6"
+  }
+}
