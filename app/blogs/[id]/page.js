@@ -1,25 +1,26 @@
-import { getAllContentList, getDetail } from "/lib/microcms";
-import { notFound } from "next/navigation";
+import { getAllContentList } from "/lib/microcms";
 import { Blog,BlogFotter } from "/component/blog";
 
-//[id]詳細ページの作成 ビルド時に動的にページごとのファイルで作成（ダイナミックルーティング）
-//ダイナミックルーティングとgenerateStaticParamsはセット
+export const metadata = {
+  title: "イベント案内",
+};
+
 const BLOG = process.env.BLOG;
+
+//[id]詳細ページの作成 ビルド時に動的にページごとのファイルで作成（DynamicRouting）
+//ダイナミックルーティングとgenerateStaticParamsはセット
 export async function generateStaticParams() {
   const contents = await getAllContentList(BLOG);
 
   return contents.map((post) => ({
-    id: post.id,   //このプロパティ名=[フォルダ名]
+    id: post.id
   }));
 }
 
 export default async function StaticDetailPage({params: { id }}) {
-    const post = await getDetail({ contentid: id, endpoint: BLOG });
-    if (!post) notFound();
-
  return (
    <div>
-     <Blog post={post} endpoint={BLOG} />
+     <Blog id={id} />
      <BlogFotter />
     </div>
  );

@@ -2,7 +2,6 @@ import { Inter } from 'next/font/google'
 import Link from "next/link";
 import './common.css'
 import { Sidebar } from "/component/globals"
-import { Paths } from '/setting/const';
 import { Suspense } from "react";
 
 
@@ -34,9 +33,9 @@ export default function RootLayout({ children }) {
           <div class="row">
             <div className="col-8  maincol">{children}</div>
             <div className="col-4 sidecol">
-              <Suspense>
+              {/* <Suspense>
                 <Sidebar />
-              </Suspense>
+              </Suspense> */}
             </div>
           </div>
           <hr />
@@ -52,12 +51,12 @@ function Menu() {
     <div className="navbar menu">
       <nav>
       <ul className="menu-list">
-        <li className="menu-item"><Link href={Paths.TOP}>HOME</Link></li>
+        <li className="menu-item"><Link href="/">HOME</Link></li>
         <li className="menu-item"><Link href="#">ご利用案内</Link></li>
         <li className="menu-item"><Link href="#">お知らせ</Link></li>
-        <li className="menu-item"><Link href={Paths.BLOG}>イベント案内</Link></li>
+        <li className="menu-item"><Link href="/list/1">イベント案内</Link></li>
         <li className="menu-item"><Link href="#">年間の見どころ</Link></li>
-        <li className="menu-item"><Link href={Paths.ACCESS}>アクセス</Link></li>
+        <li className="menu-item"><Link href="/access">アクセス</Link></li>
         <li className="menu-item"><Link href="#">お問い合わせ</Link></li>
       </ul>
       </nav>

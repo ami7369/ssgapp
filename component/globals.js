@@ -1,25 +1,9 @@
 import parse from "html-react-parser";
 import { getLists } from "/lib/microcms";
-import Link from "next/link";
-import { Path } from "/setting/const.js";
+import { MonthlyLinks } from "/component/monthlyLinks";
+import { CategoryLinks } from "/component/categoryLinks";
+import { TopicList } from "/component/topicList";
 
-export const Menu =() => {
-  return (
-    <div className="navbar">
-      <nav>
-      <ul>
-        <li><Link href={Path.TOP}>HOME</Link></li>
-        <li><Link href="#">ご利用案内</Link></li>
-        <li><Link href="#">お知らせ</Link></li>
-        <li><Link href={Path.BLOG}>イベント案内</Link></li>
-        <li><Link href="#">年間の見どころ</Link></li>
-        <li><Link href={Path.ACCESS}>アクセス</Link></li>
-        <li><Link href="#">お問い合わせ</Link></li>
-      </ul>
-      </nav>
-    </div>
-  );
-}
 const replacer = (dom) => {
   if (dom.name === "img") {
     const attr = dom.attribs;
@@ -28,27 +12,26 @@ const replacer = (dom) => {
 };
 
 export const Sidebar = async()=> {
-  const { contents } = await getLists("mori-static", { filters: 'component[equals]true',orders:'displayorder' });
+  const { contents } = await getLists("mori-static", {
+    filters: 'filters: "component[equals]true[and]displayorder[greater_than]-1"',
+    orders: "displayorder",
+  });
   return (
     <div>
-      {contents.map((data) => {
-        return parse(data.content,replacer);      
-      })
-      }
+      {data.map((item) => (
+        <div
+          key={item.id}
+          className={`static-component order${item.displayorder}`}
+        >
+          {item.id == "comp_categorylink" && <CategoryLinks />}
+          {item.id == "comp_monthlylink" && <MonthlyLinks />}
+          {item.id == "comp_topiclist" && <TopicList />}
+          {item.id != "comp_categorylink" &&
+            item.id != "comp_monthlylink" &&
+            item.id != "comp_topiclist" &&
+            parse(item.content, replacer)}
+        </div>
+      ))}
     </div>
-  )
+  );
 };
-
-const SideBanner = (data)=>{
-  return (
-    <Image></Image>
-  )
-}
-
-export function ArchiveList() {
-  //月別アーカイブリスト
-}
-
-export function CategoryList() {
-  //カテゴリリスト
-}

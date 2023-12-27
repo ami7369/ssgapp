@@ -1,12 +1,11 @@
 import { getLists, getIndexList } from "/lib/microcms";
 import { notFound } from "next/navigation";
-import { ArticleCard } from "/component/bloglist";
+import { ArticleCard, Articles } from "/component/bloglist";
 import { Suspense } from "react";
-import { Paging} from "/component/paging";
+import { Paging } from "/component/paging";
+import { PERPAGE } from "/setting/const";
 
-//[page]ページネーションごとの一覧ページ
 const BLOG = process.env.BLOG;
-const PERPAGE = process.env.PAGING;
 
 export async function generateStaticParams() {
   const contents = await getLists(BLOG, { limit: 1, fields: "id,title" });
@@ -16,17 +15,15 @@ export async function generateStaticParams() {
   const range = (start, end) =>
     [...Array(end - start + 1)].map((_, i) => start + i);
 
-  //stringにしなければいけない
+  //value must be string
   const paths = range(1, Math.ceil(count / PERPAGE)).map((num) => ({
-    page: `${num}`,
+    num: `${num}`,
   }));
   return paths;
 }
 
-export default async function IndexPage({ params: { month, page }}) {
-  const itemCount = page * PERPAGE;
-
-  const posts = await getIndexList(BLOG, itemCount);
+export default async function IndexPage({ params: { num } }) {
+  const posts = await getIndexList(BLOG, num);
   if (!posts) notFound();
   const totalPage = Math.ceil(posts.totalCount / PERPAGE);
 
@@ -34,17 +31,9 @@ export default async function IndexPage({ params: { month, page }}) {
   //console.log(((`Count:${itemCount}, Now:${page}`);
 
   return (
-    <div>
-      <div className="post-list">
-      {posts.contents.map((post) => {
-        return (
-          <div key={post.div} className="article-list">
-            <ArticleCard key={post.div} post={post} path="/blog"></ArticleCard>
-          </div>
-        );
-      })}
-      </div>
-      <Paging totalPage={totalPage} index={page} path={"/pages"} />
-    </div>
+    <>
+      <Articles posts={posts.contents} />
+      <Paging totalPage={totalPage} path={`/list`} index={num} />
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import { Static} from "/component/staticPage";
 import { Suspense } from "react";
-import { OGP } from "/component/blog";
 
 export const metadata = {
   title: "アクセス",

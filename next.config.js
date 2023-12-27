@@ -1,6 +1,9 @@
+const dns = require("dns");
+dns.setDefaultResultOrder("ipv4first");
+
 /** @type {import('next').NextConfig} */
 const SUBDIR = process.env.TARGET;
-const Type = process.env.BUILDTYPE; ;
+const Type = process.env.BUILDTYPE;
 const isProd = process.env.NODE_ENV == "productionSep";
 const nextConfig = {
   trailingSlash: true,
@@ -24,4 +27,4 @@ const nextConfig = {
   },
 };
 //console.log((("BasePath:"+nextConfig.assetPrefix + ":" + nextConfig.publicRuntimeConfig.BASEPath);
-module.exports = nextConfig
+module.exports = nextConfig;

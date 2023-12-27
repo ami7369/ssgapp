@@ -4,26 +4,15 @@ import { htmlToText } from "html-to-text";
 import Link from "next/link";
 import Image from "next/image";
 import parse, { domToReact } from "html-react-parser";
-import { microCMSLoader,getLists } from "/lib/microcms"
-import { getSiblingPost, getRelatePost } from "/lib/listfnc";
- 
-export const Blog = async function ({ post,endpoint }) {
-    //console.log((("||MSG BLOG|| "+post.publishedAt); //JSON.stringify(post)
-    const publishdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
+import { microCMSLoader, getLists, getDetail } from "/lib/microcms"
+import { getSingle } from "/lib/listfnc"
 
-    let options = {
-      endpoint: endpoint,
-      TargetDate: post.publishedAt,
-      contentTypeId: post.contenttype.id,
-    };
-    //Prev.Next
-    const nextPost = await getSiblingPost(options, false);
-    const prevPost = await getSiblingPost(options, true);
-    //Related
-    options.categories = post.category;
-    options.selfid = post.id;
-    options.contentType = post.contenttype.id;
-    const relatePost = await getRelatePost(options);
+const BLOG = process.env.BLOG;
+
+export const Blog = async function ({id}) {
+  
+  const post = await getSingle(BLOG, id);
+  const publishdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
 
     return (
       <div className="blog-column">
@@ -37,19 +26,19 @@ export const Blog = async function ({ post,endpoint }) {
           </div>
         </div>
         {post.category && (
-          <CategoryTip categorys={post.category} endpoint={endpoint} />
+          <CategoryTip categorys={post.category} endpoint={BLOG} />
         )}
         <div className="post-fotter clearfix">
-          {relatePost && <RelatePosts posts={relatePost} />}
-          <SiblingPosts prevPost={prevPost} nextPost={nextPost} />
+          <RelatePosts posts={post.relatePost} />
+          <SiblingPosts prevPost={post.prevPost} nextPost={post.nextPost} />
         </div>
       </div>
     );
 }
 
 const SiblingPosts = async function ({ prevPost, nextPost }) {
-    //console.log((("|||MSG SiblingNextPost -------------------------|");
-    //console.log(((JSON.stringify(nextPost));
+    console.log("|||MSG SiblingNextPost -------------------------|");
+    console.log(JSON.stringify(nextPost))
 
     return (
       <ul className="sibil-posts">
@@ -65,11 +54,11 @@ const SiblingPosts = async function ({ prevPost, nextPost }) {
 }
 
 const SiblingPost = function ({ post }) {
-    const publishdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
+    const pubdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
     return (
         <Link class="blog-sibling-inner" href={`/blogs/${post.id}`}>
             <Image className="blog-sibling-img img-cover" src={post.thumbnail.url} alt={post.thumbnail.alt} fill />
-            <span className="blog-sibiling-date blog-sibling-info">{publishdate}</span>   
+            <span className="blog-sibiling-date blog-sibling-info">{pubdate}</span>   
             <span className="blog-sibiling-title blog-sibling-info">{post.title}</span> 
         </Link>
     )

@@ -443,3 +443,6 @@ a:hover {
   color: #666; /* 説明文のスタイル */
 }
 
+.MuiPagination-ul li{
+  width:auto;
+}
