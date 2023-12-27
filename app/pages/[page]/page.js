@@ -11,7 +11,7 @@ const PERPAGE = process.env.PAGING;
 export async function generateStaticParams() {
   const contents = await getLists(BLOG, { limit: 1, fields: "id,title" });
   const count = contents.totalCount;
-  console.log("||MSG||GetData total:" + count);
+  //console.log((("||MSG||GetData total:" + count);
 
   const range = (start, end) =>
     [...Array(end - start + 1)].map((_, i) => start + i);
@@ -30,8 +30,8 @@ export default async function IndexPage({ params: { month, page }}) {
   if (!posts) notFound();
   const totalPage = Math.ceil(posts.totalCount / PERPAGE);
 
-  console.log("||CheckParams------------||");
-  console.log(`Count:${itemCount}, Now:${page}`);
+  //console.log((("||CheckParams------------||");
+  //console.log(((`Count:${itemCount}, Now:${page}`);
 
   return (
     <div>

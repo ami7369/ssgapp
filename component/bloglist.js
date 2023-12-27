@@ -1,6 +1,5 @@
 import { microCMSLoader } from '/lib/microcms';
 import { dateToJST } from "/lib/datelib";
-import { htmlToText } from "html-to-text";
 import Link from "next/link";
 import Image from "next/image";
 import { TXTLEN } from '/setting/const';
@@ -22,7 +21,6 @@ export const ArticleCard = ({ post,path }) => {
   const publishdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
   const thumbnail = setThumbnail(post);
     const link = `${path}/${post.id}`;
-  //const txt = htmlToText(post.content, { wordwrap: 60 });
     const txt = ((str) => str.length > TXTLEN ? str.substring(0, TXTLEN) + '...' : str)(post.content.replace(/<[^>]+>|\n/g, ""));
   return (
     <div className="list-item">

@@ -23,5 +23,5 @@ const nextConfig = {
     BASEPath: isProd ? Type + SUBDIR : Type,
   },
 };
-console.log("BasePath:"+nextConfig.assetPrefix + ":" + nextConfig.publicRuntimeConfig.BASEPath);
+//console.log((("BasePath:"+nextConfig.assetPrefix + ":" + nextConfig.publicRuntimeConfig.BASEPath);
 module.exports = nextConfig

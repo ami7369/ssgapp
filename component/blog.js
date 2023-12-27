@@ -8,7 +8,7 @@ import { microCMSLoader,getLists } from "/lib/microcms"
 import { getSiblingPost, getRelatePost } from "/lib/listfnc";
  
 export const Blog = async function ({ post,endpoint }) {
-    console.log("||MSG BLOG|| "+post.publishedAt); //JSON.stringify(post)
+    //console.log((("||MSG BLOG|| "+post.publishedAt); //JSON.stringify(post)
     const publishdate = dateToJST(post.publishedAt, "YYYY.MM.DD HH:mm");
 
     let options = {
@@ -48,8 +48,8 @@ export const Blog = async function ({ post,endpoint }) {
 }
 
 const SiblingPosts = async function ({ prevPost, nextPost }) {
-    console.log("|||MSG SiblingNextPost -------------------------|");
-    console.log(JSON.stringify(nextPost));
+    //console.log((("|||MSG SiblingNextPost -------------------------|");
+    //console.log(((JSON.stringify(nextPost));
 
     return (
       <ul className="sibil-posts">
@@ -76,11 +76,14 @@ const SiblingPost = function ({ post }) {
 }
 
 const RelatePosts = async function ({ posts }) {
-    console.log("||MSG relates-----------------");
-    console.log(JSON.stringify(posts));
+    //console.log((("||MSG relates-----------------");
+    //console.log(((JSON.stringify(posts));
     return (
       <ul className="relate-posts">
-            {posts.contents.map((post) => <div class="relate-post-outer"><li className="relate-posts-item"><RelatePost post={post} /></li></div>)}
+        {posts.contents.map((post) =>
+          <div class="relate-post-outer" key={post.id}>
+            <li className="relate-posts-item"><RelatePost post={post} /></li>
+          </div>)}
       </ul>
     ); 
 }
@@ -113,7 +116,7 @@ function replacerBlog(dom){
 };
 
 async function CategoryTip({ categorys, endpoint }) {
-    console.log("||MSG CategoryTip||" + JSON.stringify(categorys))
+    //console.log((("||MSG CategoryTip||" + JSON.stringify(categorys))
     let query = {
         fields: 'id',
         filters: '',
@@ -132,7 +135,7 @@ async function CategoryTip({ categorys, endpoint }) {
             <ul className="blog-category-list">
           {itemCount.map((cat) => {
             return(
-              <li className="categorytip-item">
+              <li className="categorytip-item" key={cat.id}>
                 <Link href={`/categorys/${cat.id}/1`} className="blog-category-item">
                   <span className="categorytip-txt">{`${cat.category}(${cat.totalCount})`}</span>
                 </Link>
@@ -145,7 +148,7 @@ async function CategoryTip({ categorys, endpoint }) {
 }
 
 export const BlogFotter = async function () {
-  const footcontent = await getLists('mori-static', { filters: 'title[equals]ブログフッター' });
+  const footcontent = await getLists('mori-static', { filters: 'title[equals]BlogFooter' });
   if (!footcontent) return;
   return (
     <div className="blog-static-fotter">

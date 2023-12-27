@@ -8,8 +8,8 @@ import Stack from "@mui/material/Stack";
 
 export const Paging = ({ totalPage, index, path }) => {
   let page = useParams().page;
-  // console.log("NowPage is ---------" + page);
-  // console.log("NowPath ---------" + useParams().page);
+  // //console.log((("NowPage is ---------" + page);
+  // //console.log((("NowPath ---------" + useParams().page);
   
   return (
     <div className="paging-box" style={{ display: "block" }}>

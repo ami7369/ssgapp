@@ -5,3 +5,4 @@ export const Path = {
 }
 
 export const TXTLEN = 100
+export const PERPAGE = 5

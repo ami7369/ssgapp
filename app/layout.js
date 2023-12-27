@@ -1,10 +1,9 @@
 import { Inter } from 'next/font/google'
-import Script from "next/script";
 import Link from "next/link";
 import './common.css'
-import { getDetail, microCMSLoader, ImagePathReplace,getLists } from "/lib/microcms";
-import { Sidebar,Menu } from "/component/globals"
-import parse from "html-react-parser";
+import { Sidebar } from "/component/globals"
+import { Paths } from '/setting/const';
+import { Suspense } from "react";
 
 
 //全体に適応されるレイアウト
@@ -30,14 +29,17 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className={inter.className}>
+        <Menu />
         <div className="container">
           <div class="row">
             <div className="col-8  maincol">{children}</div>
             <div className="col-4 sidecol">
-              {/* <Sidebar /> */}
+              <Suspense>
+                <Sidebar />
+              </Suspense>
             </div>
           </div>
-          <Footer />
+          <hr />
         </div>
       </body>
     </html>
@@ -45,12 +47,21 @@ export default function RootLayout({ children }) {
 }
 
 //共通レイアウトコンポーネント
-const Footer = () => {
+function Menu() {
   return (
-    <footer>
-      <p>
-        <Link href="/">TOP</Link>
-      </p>
-    </footer>
+    <div className="navbar menu">
+      <nav>
+      <ul className="menu-list">
+        <li className="menu-item"><Link href={Paths.TOP}>HOME</Link></li>
+        <li className="menu-item"><Link href="#">ご利用案内</Link></li>
+        <li className="menu-item"><Link href="#">お知らせ</Link></li>
+        <li className="menu-item"><Link href={Paths.BLOG}>イベント案内</Link></li>
+        <li className="menu-item"><Link href="#">年間の見どころ</Link></li>
+        <li className="menu-item"><Link href={Paths.ACCESS}>アクセス</Link></li>
+        <li className="menu-item"><Link href="#">お問い合わせ</Link></li>
+      </ul>
+      </nav>
+    </div>
   );
-};
+}
+
