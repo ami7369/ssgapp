@@ -1,5 +1,4 @@
 import { Static} from "/component/staticPage";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "アクセス",
@@ -8,9 +7,7 @@ export const metadata = {
 export default async function About() {
   return (
     <div>
-      <Suspense>
         <Static id="static_access" />
-      </Suspense>
     </div>
   );
 };

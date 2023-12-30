@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { Articles } from "/component/bloglist";
 import { Paging } from "/component/paging";
 import { PERPAGE } from "/setting/const";
-import { getAllContentList, getLists } from "/lib/microcms";
 import { getCategoryList } from "/lib/listfnc";
 
 //[num]ページネーションごとの一覧ページ カテゴリ
@@ -34,12 +33,15 @@ export default async function IndexPage({ params: {slug,num } }) {
 
   const contents = categorys[slug].contents;
   const totalPage = Math.ceil(contents.length / PERPAGE);
-  const end =
-    itemCount + PERPAGE - 1 <= contents.length? itemCount + PERPAGE - 1: contents.length - 1;
-  const pagedata = contents.slice(itemCount == 0 ? itemCount:itemCount - 1, end);
+  let end = itemCount + PERPAGE;
+  end = end > contents.length ? contents.length : end;
+  const pagedata = contents.slice(itemCount, end);
 
   return (
     <div>
+      <div className="posts-page-head">
+            <h2>{categorys[slug].category}</h2>
+          </div>
       <Articles posts={pagedata} />
       <Paging totalPage={totalPage} path={`/categorys/${slug}`} index={num} />
     </div>

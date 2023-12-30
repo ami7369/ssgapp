@@ -52,7 +52,7 @@ async function InfoIndex() {
       </div>
       <div className="top-block-content">
         {infoTOP && <Articles posts={infoTOP.contents} />}
-        <Link href={`/categorys/${infoCategory}/1`}>
+        <Link href={`/SSG/categorys/${infoCategory}/1`}>
           <button type="button" class="btn btn-dark">
             もっと見る
           </button>

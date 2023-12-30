@@ -30,16 +30,18 @@ export default async function IndexPage({ params: { month, num } }) {
 
   const monthdata = posts[month];
   const totalPage = Math.ceil(monthdata.length / PERPAGE);
-  //console.log((("|MSG|-----CheckParams---------");
-  const end = (itemCount + PERPAGE - 1) <= monthdata.length ? (itemCount + PERPAGE - 1) : monthdata.length - 1;
-  //console.log(((`Count=${itemCount}:month=${month}:page=${page}:end=${end}:monthData=${monthdata.length}`);
-  //console.log((("TOTALPAGE IS --------" + totalPage);
-  const pagedata = monthdata.slice(itemCount == 0 ? itemCount:itemCount - 1,end);
+  const start = itemCount;
+  let end = itemCount + PERPAGE;
+  end = end > monthdata.length ? monthdata.length : end;
+  const pagedata = monthdata.slice(start, end);
+  const [yyyy, mm] = month.split("_");
   return (
     <div>
+      <div className="posts-page-head">
+        <h2>{yyyy}.{mm}</h2>
+      </div>
       <Articles posts={pagedata} />
       <Paging totalPage={totalPage} path={`/archives/${month}`} index={num} />
     </div>
-
   );
 }
