@@ -8,8 +8,8 @@ const isProd = process.env.NODE_ENV == "productionSep";
 const nextConfig = {
   trailingSlash: true,
   output: "export",
-  assetPrefix: isProd ? Type + SUBDIR : Type,
-  basePath: isProd ? Type + SUBDIR : Type,
+  assetPrefix: isProd ? "/" + Type + SUBDIR : "/" + Type,
+  basePath: isProd ? "/" + Type + SUBDIR : "/" + Type,
   images: {
     unoptimized: true,
     remotePatterns: [
@@ -26,5 +26,5 @@ const nextConfig = {
     BASEPath: isProd ? Type + SUBDIR : Type,
   },
 };
-//console.log((("BasePath:"+nextConfig.assetPrefix + ":" + nextConfig.publicRuntimeConfig.BASEPath);
+console.log("BasePath:"+nextConfig.assetPrefix + ":" + nextConfig.publicRuntimeConfig.BASEPath);
 module.exports = nextConfig;

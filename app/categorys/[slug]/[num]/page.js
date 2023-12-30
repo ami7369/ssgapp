@@ -10,27 +10,19 @@ const BLOG = process.env.BLOG;
 const CATEGORY = process.env.CATEGORY;
 
 export async function generateStaticParams() {
-  const categorys = await getAllContentList(CATEGORY, {
-    fields: "id",
-    limit:1,
-  }).then((data) => data.contents.filter((content) => content.contenttype != null));
-
+  const categoryList = await getCategoryList(BLOG);
   let range = (start, end) =>
     [...Array(end - start + 1)].map((_, i) => start + i);
-
-  const categoryPath = await Promise.all(
-    categorys.map(async (category) => {
-      query.filters = `category[contains]${category.id}`;
-      let data = await getLists(endpoint, query);
-
-      return range(1, Math.ceil(data.totalCount / PERPAGE)).map((num) => ({
-        slug: category.id,
-        num: `${num}`,
-      }));
-    })
-  );
-
-  return categoryPath.flat();
+ 
+  //CategoryList Objectパターン List = { 'slug':{object},'slug':{object}}
+  const paths = Object.keys(categoryList).map((category) => {
+    return range(1, Math.ceil(categoryList[category].contents.length / PERPAGE)).map((num) => ({
+      slug: `${category}`,
+      num: `${num}`,
+    }));
+  });
+ 
+  return paths.flat();
 }
 
 
