@@ -5,17 +5,6 @@ import Image from "next/image";
 import { TXTLEN } from '/setting/const';
 import { setThumbnail } from '/lib/commonfnc';
 
-// export const ArticleList = ({ posts }) =>{
-//     return (
-//       <div className="articles-list">
-//         <ul>
-//           {posts.map((post) => (
-//             <ArticleCard key={post.id} post={post} />
-//           ))}
-//         </ul>
-//       </div>
-//     );
-// }
 export function Articles({ posts }) {
   
   if (posts.length != 0) {

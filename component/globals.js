@@ -13,12 +13,12 @@ const replacer = (dom) => {
 
 export const Sidebar = async()=> {
   const { contents } = await getLists("mori-static", {
-    filters: 'filters: "component[equals]true[and]displayorder[greater_than]-1"',
+    filters: "component[equals]true[and]displayorder[greater_than]-1",
     orders: "displayorder",
   });
   return (
     <div>
-      {data.map((item) => (
+      {contents.map((item) => (
         <div
           key={item.id}
           className={`static-component order${item.displayorder}`}

@@ -10,10 +10,10 @@ export async function CategoryLinks() {
     return (
       <div className="comp-category">
         <ul>
-        {Object.keys(content).map((category) => (
+        {Object.keys(data).map((category) => (
           <li key={category}>
-            <Link href={`/categorys/${content[category].category}/1}`}>
-              {content[category].category}（{content[category].contents.length}）
+            <Link href={`/categorys/${category}/1`}>
+              {data[category].category}（{data[category].contents.length}）
             </Link>
           </li>
         ))}

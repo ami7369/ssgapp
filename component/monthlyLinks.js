@@ -10,8 +10,8 @@ export async function MonthlyLinks() {
     <div>
       <ul>
         {Object.keys(monthlyIndex).map((yearMonth) => (
-          <li key={monthlyIndex}>
-            <Link href={`/archives/monthlyIndex/1}`}>
+          <li key={yearMonth}>
+            <Link href={`/archives/${yearMonth}/1`}>
               {yearMonth}（{monthlyIndex[yearMonth].length}）
             </Link>
           </li>

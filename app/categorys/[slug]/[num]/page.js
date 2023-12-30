@@ -34,23 +34,12 @@ export default async function IndexPage({ params: {slug,num } }) {
 
   const contents = categorys[slug].contents;
   const totalPage = Math.ceil(contents.length / PERPAGE);
-  //console.log((("|MSG|-----CheckParams---------");
   const end =
     itemCount + PERPAGE - 1 <= contents.length? itemCount + PERPAGE - 1: contents.length - 1;
-  //console.log(((`Count=${itemCount}:slug=${slug}:page=${page}:end=${end}:Data=${contents.length}`);
-  //console.log((("TOTALPAGE IS --------" + totalPage);
   const pagedata = contents.slice(itemCount == 0 ? itemCount:itemCount - 1, end);
 
   return (
     <div>
-      {/* {pagedata.map((post) => {
-        post.thumbnail = setThumbnail(post);
-        return (
-          <div key={post.id} className="article-list">
-            <ArticleCard key={post.id} post={post} path="/blogs"></ArticleCard>
-          </div>
-        );
-      })} */}
       <Articles posts={pagedata} />
       <Paging totalPage={totalPage} path={`/categorys/${slug}`} index={num} />
     </div>

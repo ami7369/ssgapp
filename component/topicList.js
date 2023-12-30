@@ -49,7 +49,7 @@ export const TopicThumbnail = function ({ thumbnail, id }) {
 
 //人気記事
 export async function TopicList() {
-  const data = await getDetail({ contentid: "topicitem", endpoint: TOPIC }, {fields:id,topicpost})
+  const data = await getDetail({ contentid: "topicitem", endpoint: TOPIC }, {fields:"id,topicpost"})
   if (data&&data.topicpost) {
     return (
       <div>

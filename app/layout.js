@@ -1,9 +1,7 @@
 import { Inter } from 'next/font/google'
 import Link from "next/link";
 import './common.css'
-import { Sidebar } from "/component/globals"
-import { Suspense } from "react";
-
+import { Sidebar } from '/component/globals';
 
 //全体に適応されるレイアウト
 const inter = Inter({ subsets: ['latin'] })
@@ -33,9 +31,7 @@ export default function RootLayout({ children }) {
           <div class="row">
             <div className="col-8  maincol">{children}</div>
             <div className="col-4 sidecol">
-              {/* <Suspense>
-                <Sidebar />
-              </Suspense> */}
+              <Sidebar />
             </div>
           </div>
           <hr />

@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
   const paths = Object.keys(archiveList).map((month) => {
 
-    return range(1, Math.ceil(archiveList[month].length / 2)).map((num) => ({
+    return range(1, Math.ceil(archiveList[month].length / PERPAGE)).map((num) => ({
       month: `${month}`,
       num: `${num}`,
     }));

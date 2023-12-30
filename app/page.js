@@ -6,6 +6,7 @@ import { Paging } from "/component/paging";
 import { Link } from "@mui/material";
 const BLOG = process.env.BLOG;
 const infoTypeId = "0kodg05un"; //お知らせコンテンツ
+const infoCategory = "e6pov-egvxv";
 
 //トップページ
 export default async function TopPage() {
@@ -51,7 +52,7 @@ async function InfoIndex() {
       </div>
       <div className="top-block-content">
         {infoTOP && <Articles posts={infoTOP.contents} />}
-        <Link href={`/categorys/${infoTypeId}/1`}>
+        <Link href={`/categorys/${infoCategory}/1`}>
           <button type="button" class="btn btn-dark">
             もっと見る
           </button>
